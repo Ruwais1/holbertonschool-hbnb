@@ -40,7 +40,7 @@ nav a {
     border-radius: 5px;
 }
 
-/* Fixed Parameters for Cards (As required by the task) */
+/* Fixed Parameters for Cards */
 .place-card, .review-card {
     margin: 20px;
     padding: 10px;

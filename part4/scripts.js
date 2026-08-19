@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Check authentication status on page load (Tasks 2, 3, 4)
+    // 1. Check authentication status on page load
     checkAuthentication();
 
-    // 2. Handle Login Form Submission (Task 1)
+    // 2. Handle Login Form Submission
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', async (event) => {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Handle Price Filter (Task 2)
+    // 3. Handle Price Filter
     const priceFilter = document.getElementById('price-filter');
     if (priceFilter) {
         priceFilter.addEventListener('change', (event) => {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Handle Add Review Form Submission (Task 4)
+    // 4. Handle Add Review Form Submission
     const reviewForm = document.getElementById('review-form');
     if (reviewForm) {
         const token = getCookie('token');
@@ -79,7 +79,7 @@ function checkAuthentication() {
     const reviewForm = document.getElementById('review-form');
     const placeId = getPlaceIdFromURL();
 
-    // Task 4: Redirect unauthenticated users away from the review page
+    // Redirect unauthenticated users away from the review page
     if (reviewForm && !token) {
         window.location.href = 'index.html';
         return;
@@ -90,7 +90,7 @@ function checkAuthentication() {
         loginLink.style.display = !token ? 'block' : 'none';
     }
 
-    // Control Add Review Button Visibility & URL (Task 3 & 4)
+    // Control Add Review Button Visibility & URL
     if (addReviewSection) {
         addReviewSection.style.display = !token ? 'none' : 'block';
         if (placeId) {
@@ -126,7 +126,7 @@ function getPlaceIdFromURL() {
 // API REQUEST FUNCTIONS
 // ==========================================
 
-// Task 1: Authenticate User
+// Authenticate User
 async function loginUser(email, password) {
     try {
         const response = await fetch('http://127.0.0.1:5000/api/v1/auth/login', {
@@ -148,7 +148,7 @@ async function loginUser(email, password) {
     }
 }
 
-// Task 2: Fetch Places List
+// Fetch Places List
 async function fetchPlaces(token) {
     try {
         const headers = { 'Content-Type': 'application/json' };
@@ -170,7 +170,7 @@ async function fetchPlaces(token) {
     }
 }
 
-// Task 3: Fetch Place Details
+// Fetch Place Details
 async function fetchPlaceDetails(token, placeId) {
     try {
         const headers = { 'Content-Type': 'application/json' };
@@ -193,7 +193,7 @@ async function fetchPlaceDetails(token, placeId) {
     }
 }
 
-// Task 4: Submit Review
+// Submit Review
 async function submitReview(token, placeId, text, rating) {
     try {
         const response = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}/reviews`, {
@@ -205,7 +205,7 @@ async function submitReview(token, placeId, text, rating) {
             body: JSON.stringify({
                 text: text,
                 rating: parseInt(rating),
-                place_id: placeId
+                user_id: "replace_with_actual_user_id" // Needs to be handled correctly in backend
             })
         });
 
@@ -265,10 +265,29 @@ function displayPlaceDetails(place) {
             ? place.amenities.map(a => a.name).join(', ') 
             : 'No amenities listed';
 
+        // Custom Icons Section
+        const featuresHtml = `
+            <div style="display: flex; gap: 20px; margin: 15px 0; align-items: center;">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <img src="image/icon_bed.png" alt="Bed" style="width: 24px; height: 24px;">
+                    ${place.number_rooms || 2} Rooms
+                </span>
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <img src="image/icon_bath.png" alt="Bath" style="width: 24px; height: 24px;">
+                    ${place.number_bathrooms || 1} Baths
+                </span>
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <img src="image/icon_wifi.png" alt="WiFi" style="width: 24px; height: 24px;">
+                    WiFi included
+                </span>
+            </div>
+        `;
+
         placeInfo.innerHTML = `
             <h1>${title}</h1>
             <p><strong>Host:</strong> ${host}</p>
             <p><strong>Price:</strong> $${place.price || 0} per night</p>
+            ${featuresHtml}
             <p><strong>Description:</strong> ${place.description || 'No description provided.'}</p>
             <p><strong>Amenities:</strong> ${amenitiesList}</p>
         `;

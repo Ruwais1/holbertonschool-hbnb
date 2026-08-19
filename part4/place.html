@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HBnB - Place Details</title>
+    <link rel="icon" href="image/icon.png" type="image/png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,30 +12,24 @@
         <img src="image/logo.png" alt="HBnB Logo" class="logo">
         <nav>
             <a href="index.html">Home</a>
-            <a href="login.html" class="login-button">Login</a>
+            <a href="login.html" class="login-button" id="login-link">Login</a>
         </nav>
     </header>
 
     <main>
+        <!-- Place Details Container -->
         <section id="place-details" class="place-details">
             <div class="place-info">
-                <h1>Cozy Apartment in Riyadh</h1>
-                <p><strong>Host:</strong> Fahad Almidaj</p>
-                <p><strong>Price:</strong> $50 per night</p>
-                <p><strong>Description:</strong> A beautiful place in Riyadh.</p>
-                <p><strong>Amenities:</strong> WiFi, AC</p>
+                <!-- Data will be loaded here dynamically -->
             </div>
 
             <div class="reviews">
                 <h2>Reviews</h2>
-                <article class="review-card">
-                    <p><strong>User:</strong> Ahmed</p>
-                    <p><strong>Rating:</strong> 5/5</p>
-                    <p><strong>Comment:</strong> Amazing place!</p>
-                </article>
+                <!-- Reviews will be loaded here dynamically -->
             </div>
 
-            <div id="add-review" class="add-review">
+            <!-- Add Review Section -->
+            <div id="add-review" class="add-review" style="display: none;">
                 <a href="add_review.html" class="details-button">Add a Review</a>
             </div>
         </section>
@@ -43,5 +38,7 @@
     <footer>
         <p>&copy; 2026 HBnB. All rights reserved.</p>
     </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
