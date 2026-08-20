@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">HBnB entity-relationship diagram</title>
+  <desc id="desc">Users own places and write reviews. Places receive reviews and connect to amenities through place_amenity.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f8fafc; }
+      .entity { fill: #ffffff; stroke: #334155; stroke-width: 2; rx: 10; }
+      .head { fill: #0f766e; }
+      .title { fill: #ffffff; font: 700 19px Arial, sans-serif; }
+      .field { fill: #0f172a; font: 14px Consolas, monospace; }
+      .key { fill: #b45309; font-weight: 700; }
+      .line { stroke: #475569; stroke-width: 2; fill: none; }
+      .label { fill: #334155; font: 13px Arial, sans-serif; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="760"/>
+  <text x="600" y="38" text-anchor="middle" style="fill:#0f172a;font:700 26px Arial,sans-serif">HBnB Database Schema</text>
+
+  <g transform="translate(55 80)">
+    <rect class="entity" width="300" height="285"/>
+    <path class="head" d="M10 0h280a10 10 0 0 1 10 10v38H0V10A10 10 0 0 1 10 0z"/>
+    <text class="title" x="150" y="31" text-anchor="middle">users</text>
+    <text class="field key" x="18" y="76">PK  id : string(36)</text>
+    <text class="field" x="18" y="104">first_name : string(50)</text>
+    <text class="field" x="18" y="132">last_name : string(50)</text>
+    <text class="field key" x="18" y="160">UK  email : string(120)</text>
+    <text class="field" x="18" y="188">password : string(128)</text>
+    <text class="field" x="18" y="216">is_admin : boolean</text>
+    <text class="field" x="18" y="244">created_at : datetime</text>
+    <text class="field" x="18" y="272">updated_at : datetime</text>
+  </g>
+
+  <g transform="translate(450 80)">
+    <rect class="entity" width="300" height="285"/>
+    <path class="head" d="M10 0h280a10 10 0 0 1 10 10v38H0V10A10 10 0 0 1 10 0z"/>
+    <text class="title" x="150" y="31" text-anchor="middle">places</text>
+    <text class="field key" x="18" y="76">PK  id : string(36)</text>
+    <text class="field" x="18" y="104">title : string(100)</text>
+    <text class="field" x="18" y="132">description : string(1000)</text>
+    <text class="field" x="18" y="160">price : float &gt; 0</text>
+    <text class="field" x="18" y="188">latitude / longitude : float</text>
+    <text class="field key" x="18" y="216">FK  owner_id : string(36)</text>
+    <text class="field" x="18" y="244">created_at : datetime</text>
+    <text class="field" x="18" y="272">updated_at : datetime</text>
+  </g>
+
+  <g transform="translate(845 80)">
+    <rect class="entity" width="300" height="285"/>
+    <path class="head" d="M10 0h280a10 10 0 0 1 10 10v38H0V10A10 10 0 0 1 10 0z"/>
+    <text class="title" x="150" y="31" text-anchor="middle">reviews</text>
+    <text class="field key" x="18" y="76">PK  id : string(36)</text>
+    <text class="field" x="18" y="104">text : string(1000)</text>
+    <text class="field" x="18" y="132">rating : integer (1–5)</text>
+    <text class="field key" x="18" y="160">FK  user_id : string(36)</text>
+    <text class="field key" x="18" y="188">FK  place_id : string(36)</text>
+    <text class="field" x="18" y="216">UNIQUE(user_id, place_id)</text>
+    <text class="field" x="18" y="244">created_at : datetime</text>
+    <text class="field" x="18" y="272">updated_at : datetime</text>
+  </g>
+
+  <g transform="translate(250 500)">
+    <rect class="entity" width="300" height="190"/>
+    <path class="head" d="M10 0h280a10 10 0 0 1 10 10v38H0V10A10 10 0 0 1 10 0z"/>
+    <text class="title" x="150" y="31" text-anchor="middle">amenities</text>
+    <text class="field key" x="18" y="82">PK  id : string(36)</text>
+    <text class="field key" x="18" y="112">UK  name : string(50)</text>
+    <text class="field" x="18" y="142">created_at : datetime</text>
+    <text class="field" x="18" y="172">updated_at : datetime</text>
+  </g>
+
+  <g transform="translate(650 500)">
+    <rect class="entity" width="300" height="150"/>
+    <path class="head" d="M10 0h280a10 10 0 0 1 10 10v38H0V10A10 10 0 0 1 10 0z"/>
+    <text class="title" x="150" y="31" text-anchor="middle">place_amenity</text>
+    <text class="field key" x="18" y="88">PK/FK  place_id : string(36)</text>
+    <text class="field key" x="18" y="120">PK/FK  amenity_id : string(36)</text>
+  </g>
+
+  <path class="line" marker-end="url(#arrow)" d="M355 180 C390 180 410 180 450 180"/>
+  <text class="label" x="402" y="165" text-anchor="middle">owns</text>
+  <path class="line" marker-end="url(#arrow)" d="M355 265 C560 420 800 420 845 265"/>
+  <text class="label" x="600" y="414" text-anchor="middle">writes</text>
+  <path class="line" marker-end="url(#arrow)" d="M750 180 C790 180 810 180 845 180"/>
+  <text class="label" x="798" y="165" text-anchor="middle">receives</text>
+  <path class="line" marker-end="url(#arrow)" d="M600 365 C600 430 690 445 735 500"/>
+  <text class="label" x="650" y="444">has</text>
+  <path class="line" marker-end="url(#arrow)" d="M550 590 C590 590 610 590 650 590"/>
+  <text class="label" x="600" y="574" text-anchor="middle">links</text>
+</svg>
